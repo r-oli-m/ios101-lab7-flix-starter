@@ -16,18 +16,45 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var voteLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
 
+    @IBOutlet weak var favoriteButton: UIButton!
     // TODO: Add favorite button outlet
 
     // TODO: Add favorite button action
 
+    @IBAction func didTapFavoriteButton(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected {
+            // 1.
+            movie.addToFavorites()
+        } else {
+            // 2.
+            movie.removeFromFavorites()
+        }
+    }
     var movie: Movie!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // TODO: Update favorite button selected state
+        favoriteButton.layer.cornerRadius = favoriteButton.frame.width / 2
+        // Update the button's selected state based on the current movie's favorited status.
+        // 1. Get the array of favorite movies.
+        // 2. Check if the favorite movies array contains the current movie.
+        // 3. If so, the movie has been favorited -> Set the button to the *selected* state.
+        // 4. Otherwise, the movie is not-favorited -> Set the button to the *un-selected* state.
+        // ------
 
-
+        // 1.
+        let favorites = Movie.getMovies(forKey: Movie.favoritesKey)
+        // 2.
+        if favorites.contains(movie) {
+            // 3.
+            favoriteButton.isSelected = true
+        } else {
+            // 4.
+            favoriteButton.isSelected = false
+        }
 
 
         // MARK: Style views
